@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1.0",
+  "id": "unresolved-payload-parameter-no-cascade",
+  "name": "Unresolved Payload Parameter Without Cascade",
+  "parameters": [],
+  "payloads": [
+    {
+      "id": "signal-payload",
+      "name": "Signal payload",
+      "parameters": [
+        "missing-parameter"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "signal.received",
+      "name": "Signal received",
+      "payload": "signal-payload"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "value.matches",
+      "name": "Value matches",
+      "dependencies": [
+        "missing-parameter"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "missing-parameter",
+          "value": "expected"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "matched",
+      "name": "Matched",
+      "parameters": {}
+    }
+  ],
+  "rules": [
+    {
+      "id": "match.value",
+      "name": "Match value",
+      "event": "signal.received",
+      "condition": "value.matches",
+      "action": "matched"
+    }
+  ]
+}

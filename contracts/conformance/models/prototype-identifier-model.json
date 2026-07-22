@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1.0",
+  "id": "prototype-identifier-model",
+  "name": "Prototype Identifier Model",
+  "parameters": [
+    {
+      "id": "toString",
+      "name": "Prototype-named value",
+      "type": "string"
+    }
+  ],
+  "payloads": [
+    {
+      "id": "prototype-payload",
+      "name": "Prototype-named payload",
+      "parameters": [
+        "toString"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "prototype.checked",
+      "name": "Prototype checked",
+      "payload": "prototype-payload"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "prototype.value.present",
+      "name": "Prototype-named value is present",
+      "dependencies": [
+        "toString"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "toString",
+          "value": "present"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "prototype.matched",
+      "name": "Prototype matched",
+      "parameters": {}
+    }
+  ],
+  "rules": [
+    {
+      "id": "prototype.match",
+      "name": "Match prototype-named value",
+      "event": "prototype.checked",
+      "condition": "prototype.value.present",
+      "action": "prototype.matched"
+    }
+  ]
+}

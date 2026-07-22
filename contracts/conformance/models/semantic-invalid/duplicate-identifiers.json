@@ -1,0 +1,91 @@
+{
+  "schemaVersion": "1.0",
+  "id": "duplicate-identifiers",
+  "name": "Duplicate identifiers",
+  "parameters": [
+    {
+      "id": "level",
+      "name": "Level",
+      "type": "number"
+    },
+    {
+      "id": "level",
+      "name": "Duplicate level",
+      "type": "number"
+    }
+  ],
+  "payloads": [
+    {
+      "id": "signal-payload",
+      "name": "Signal payload",
+      "parameters": [
+        "level"
+      ]
+    },
+    {
+      "id": "signal-payload",
+      "name": "Duplicate signal payload",
+      "parameters": []
+    }
+  ],
+  "events": [
+    {
+      "id": "signal.received",
+      "name": "Signal received",
+      "payload": "signal-payload"
+    },
+    {
+      "id": "signal.received",
+      "name": "Duplicate signal",
+      "payload": "signal-payload"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "always",
+      "name": "Always",
+      "dependencies": [],
+      "predicate": {
+        "name": "always",
+        "arguments": {}
+      }
+    },
+    {
+      "id": "always",
+      "name": "Duplicate always",
+      "dependencies": [],
+      "predicate": {
+        "name": "always",
+        "arguments": {}
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "record",
+      "name": "Record",
+      "parameters": {}
+    },
+    {
+      "id": "record",
+      "name": "Duplicate record",
+      "parameters": {}
+    }
+  ],
+  "rules": [
+    {
+      "id": "record.signal",
+      "name": "Record signal",
+      "event": "signal.received",
+      "condition": "always",
+      "action": "record"
+    },
+    {
+      "id": "record.signal",
+      "name": "Duplicate record signal",
+      "event": "signal.received",
+      "condition": "always",
+      "action": "record"
+    }
+  ]
+}

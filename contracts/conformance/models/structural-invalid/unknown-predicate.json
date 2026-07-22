@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0",
+  "id": "unknown-predicate",
+  "name": "Unknown predicate",
+  "parameters": [],
+  "payloads": [],
+  "events": [],
+  "conditions": [
+    {
+      "id": "invalid.predicate",
+      "name": "Invalid predicate condition",
+      "dependencies": [],
+      "predicate": {
+        "name": "customPredicate",
+        "arguments": {}
+      }
+    }
+  ],
+  "actions": [],
+  "rules": []
+}

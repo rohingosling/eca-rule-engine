@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "1.0",
+  "id": "missing-rules",
+  "name": "Missing rules",
+  "parameters": [],
+  "payloads": [],
+  "events": [],
+  "conditions": [],
+  "actions": []
+}

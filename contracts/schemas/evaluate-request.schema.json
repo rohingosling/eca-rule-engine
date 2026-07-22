@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eca-rule-engine.example/schemas/v1/evaluate-request.schema.json",
+  "title": "Stateless ECA evaluation request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event"
+  ],
+  "properties": {
+    "model": {
+      "oneOf": [
+        {
+          "$ref": "model.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "event": {
+      "$ref": "#/$defs/eventOccurrence"
+    },
+    "trace": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z][A-Za-z0-9._-]{0,127}$"
+    },
+    "eventOccurrence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/identifier"
+        },
+        "payload": {
+          "type": "object",
+          "maxProperties": 256,
+          "propertyNames": {
+            "$ref": "#/$defs/identifier"
+          }
+        }
+      }
+    }
+  }
+}

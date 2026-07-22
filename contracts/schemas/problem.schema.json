@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eca-rule-engine.example/schemas/v1/problem.schema.json",
+  "title": "ECA HTTP problem",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "title",
+    "status",
+    "code",
+    "correlationId"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "format": "uri"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "integer",
+      "minimum": 400,
+      "maximum": 599
+    },
+    "code": {
+      "description": "Stable problem category. An action-selection ambiguity uses invalid-evaluation.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "correlationId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "detail": {
+      "type": "string"
+    },
+    "diagnostics": {
+      "description": "Machine-readable details. Distinct matching actions are reported with code ambiguous-action-selection.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "diagnostic.schema.json"
+      }
+    }
+  }
+}

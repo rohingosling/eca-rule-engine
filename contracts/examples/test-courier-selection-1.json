@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "1.0",
+  "id": "new-model",
+  "name": "New model",
+  "description": "A test model that selects a courier for sample product orders using customer, destination, delivery, and quantity attributes.",
+  "parameters": [
+    {
+      "id": "paramter-vip-indicator",
+      "name": "VIP Indicator",
+      "description": "Indicates whether the customer qualifies for VIP handling.",
+      "type": "boolean"
+    },
+    {
+      "id": "parameter-country",
+      "name": "Country",
+      "description": "Destination country code supplied with the order.",
+      "type": "string"
+    },
+    {
+      "id": "parameter-delivery-type",
+      "name": "Delivery Type",
+      "description": "Requested delivery service, such as standard or scheduled.",
+      "type": "string"
+    },
+    {
+      "id": "parameter-quantity",
+      "name": "Quantity",
+      "description": "Number of product units included in the order.",
+      "type": "number"
+    }
+  ],
+  "payloads": [
+    {
+      "id": "payload-order-request",
+      "name": "Order Request",
+      "description": "Order attributes used to select an appropriate courier service.",
+      "parameters": [
+        "parameter-country",
+        "parameter-delivery-type",
+        "parameter-quantity",
+        "paramter-vip-indicator"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "event-product-x",
+      "name": "Product X",
+      "description": "Represents an order request for Product X.",
+      "payload": "payload-order-request"
+    },
+    {
+      "id": "event-product-y",
+      "name": "Product Y",
+      "description": "Represents an order request for Product Y.",
+      "payload": "payload-order-request"
+    },
+    {
+      "id": "event-product-z",
+      "name": "Product Z",
+      "description": "Represents an order request for Product Z.",
+      "payload": "payload-order-request"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "condition-customer-vip-true",
+      "name": "VIP Customer",
+      "description": "Matches order requests from VIP customers.",
+      "dependencies": [
+        "paramter-vip-indicator"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "paramter-vip-indicator",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "condition-customer-vip-false",
+      "name": "Non-VIP Customer",
+      "description": "Matches order requests from customers without VIP status.",
+      "dependencies": [
+        "paramter-vip-indicator"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "paramter-vip-indicator",
+          "value": false
+        }
+      }
+    },
+    {
+      "id": "condition-country-us",
+      "name": "Country - US",
+      "description": "Matches orders whose destination country is the United States.",
+      "dependencies": [
+        "parameter-country"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "parameter-country",
+          "value": "US"
+        }
+      }
+    },
+    {
+      "id": "condition-country-uk",
+      "name": "Country - UK",
+      "description": "Matches orders whose destination country is the United Kingdom.",
+      "dependencies": [
+        "parameter-country"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "parameter-country",
+          "value": "UK"
+        }
+      }
+    },
+    {
+      "id": "condition-country-uae",
+      "name": "Country - UAE",
+      "description": "Matches orders whose destination country is the United Arab Emirates.",
+      "dependencies": [
+        "parameter-country"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "parameter-country",
+          "value": "UAE"
+        }
+      }
+    },
+    {
+      "id": "condition-country-nz",
+      "name": "Country - New Zealand",
+      "description": "Matches orders whose destination country is New Zealand.",
+      "dependencies": [
+        "parameter-country"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "parameter-country",
+          "value": "NZ"
+        }
+      }
+    },
+    {
+      "id": "condition-delivery-type-standard",
+      "name": "Delivery Type - Standard",
+      "description": "Matches orders requesting the standard delivery service.",
+      "dependencies": [
+        "parameter-delivery-type"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "parameter-delivery-type",
+          "value": "standard"
+        }
+      }
+    },
+    {
+      "id": "condition-delivery-type-scheduled",
+      "name": "Delivery Type - Scheduled",
+      "description": "Matches orders requesting a delivery scheduled for a selected date or time.",
+      "dependencies": [
+        "parameter-delivery-type"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "parameter-delivery-type",
+          "value": "scheduled"
+        }
+      }
+    },
+    {
+      "id": "condition-quantity-0-9",
+      "name": "Quantity < 10",
+      "description": "Matches orders containing fewer than ten product units.",
+      "dependencies": [
+        "parameter-country"
+      ],
+      "predicate": {
+        "name": "lessThan",
+        "arguments": {
+          "parameter": "parameter-country",
+          "value": 10
+        }
+      }
+    },
+    {
+      "id": "condition-quantity-10-99",
+      "name": "10 <= Quantity < 100",
+      "description": "Matches orders containing between ten and ninety-nine product units.",
+      "dependencies": [
+        "parameter-country"
+      ],
+      "predicate": {
+        "name": "greaterThan",
+        "arguments": {
+          "parameter": "parameter-country",
+          "value": 9
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "action-courier-local",
+      "name": "Courier - Local",
+      "description": "Selects the local courier for an eligible domestic delivery.",
+      "parameters": {
+        "command": "courier.select.local"
+      }
+    },
+    {
+      "id": "action-courier-international",
+      "name": "Courier - International",
+      "description": "Selects the international courier for an eligible overseas delivery.",
+      "parameters": {
+        "command": "courier.select.international"
+      }
+    },
+    {
+      "id": "action-courier-same-day",
+      "name": "Courier - Same Day",
+      "description": "Selects the same-day courier for an eligible expedited delivery.",
+      "parameters": {
+        "command": "courier.select.same_day"
+      }
+    }
+  ],
+  "rules": [
+    {
+      "id": "rule-local-delivery",
+      "name": "Local Delivery",
+      "description": "Routes standard Product X orders through the local courier.",
+      "event": "event-product-x",
+      "condition": "condition-delivery-type-standard",
+      "action": "action-courier-local"
+    },
+    {
+      "id": "rule-scheduled-delivery",
+      "name": "Scheduled Delivery",
+      "description": "Routes scheduled Product X orders through the local courier.",
+      "event": "event-product-x",
+      "condition": "condition-delivery-type-scheduled",
+      "action": "action-courier-local"
+    }
+  ]
+}

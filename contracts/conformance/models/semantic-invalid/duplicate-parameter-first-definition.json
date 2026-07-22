@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.0",
+  "id": "duplicate-parameter-first-definition",
+  "name": "Duplicate parameter uses its first definition",
+  "parameters": [
+    {
+      "id": "value",
+      "name": "Numeric value",
+      "type": "number"
+    },
+    {
+      "id": "value",
+      "name": "Boolean value",
+      "type": "boolean"
+    }
+  ],
+  "payloads": [
+    {
+      "id": "payload.one",
+      "name": "Payload one",
+      "parameters": [
+        "value"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "event.one",
+      "name": "Event one",
+      "payload": "payload.one"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "condition.one",
+      "name": "Condition one",
+      "dependencies": [
+        "value"
+      ],
+      "predicate": {
+        "name": "greaterThan",
+        "arguments": {
+          "parameter": "value",
+          "value": 1
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "action.one",
+      "name": "Action one",
+      "parameters": {}
+    }
+  ],
+  "rules": [
+    {
+      "id": "rule.one",
+      "name": "Rule one",
+      "event": "event.one",
+      "condition": "condition.one",
+      "action": "action.one"
+    }
+  ]
+}

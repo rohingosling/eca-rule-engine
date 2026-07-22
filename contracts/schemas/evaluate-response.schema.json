@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eca-rule-engine.example/schemas/v1/evaluate-response.schema.json",
+  "title": "Stateless ECA evaluation response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "apiVersion",
+    "schemaVersion",
+    "modelId",
+    "eventType",
+    "selectedAction"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "1"
+    },
+    "schemaVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "modelId": {
+      "$ref": "#/$defs/identifier"
+    },
+    "eventType": {
+      "$ref": "#/$defs/identifier"
+    },
+    "selectedAction": {
+      "description": "The unique action selected by the query, or null when no rule matches.",
+      "oneOf": [
+        {
+          "$ref": "model.schema.json#/$defs/action"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "trace": {
+      "$ref": "#/$defs/trace"
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z][A-Za-z0-9._-]{0,127}$"
+    },
+    "conditionTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "condition",
+        "result",
+        "reason",
+        "missingDependencies"
+      ],
+      "properties": {
+        "condition": {
+          "$ref": "#/$defs/identifier"
+        },
+        "result": {
+          "type": "boolean"
+        },
+        "reason": {
+          "enum": [
+            "predicate-true",
+            "predicate-false",
+            "missing-dependency"
+          ]
+        },
+        "missingDependencies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        }
+      }
+    },
+    "ruleTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule",
+        "condition",
+        "conditionResult",
+        "action",
+        "matched"
+      ],
+      "properties": {
+        "rule": {
+          "$ref": "#/$defs/identifier"
+        },
+        "condition": {
+          "$ref": "#/$defs/identifier"
+        },
+        "conditionResult": {
+          "type": "boolean"
+        },
+        "action": {
+          "$ref": "#/$defs/identifier"
+        },
+        "matched": {
+          "description": "Whether this rule matched the event and its condition evaluated true.",
+          "type": "boolean"
+        }
+      }
+    },
+    "trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conditions",
+        "rules"
+      ],
+      "properties": {
+        "conditions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/conditionTrace"
+          }
+        },
+        "rules": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/ruleTrace"
+          }
+        }
+      }
+    }
+  }
+}

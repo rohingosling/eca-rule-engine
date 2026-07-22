@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1.0",
+  "id": "predicate-parameter-mismatch",
+  "name": "Predicate parameter mismatch",
+  "parameters": [
+    {
+      "id": "level",
+      "name": "Level",
+      "type": "number"
+    }
+  ],
+  "payloads": [
+    {
+      "id": "signal-payload",
+      "name": "Signal payload",
+      "parameters": [
+        "level"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "signal.received",
+      "name": "Signal received",
+      "payload": "signal-payload"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "level.high",
+      "name": "Level high",
+      "dependencies": [
+        "level"
+      ],
+      "predicate": {
+        "name": "greaterThan",
+        "arguments": {
+          "parameter": "source",
+          "value": 10
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "alert",
+      "name": "Alert",
+      "parameters": {}
+    }
+  ],
+  "rules": [
+    {
+      "id": "alert.high",
+      "name": "Alert high",
+      "event": "signal.received",
+      "condition": "level.high",
+      "action": "alert"
+    }
+  ]
+}

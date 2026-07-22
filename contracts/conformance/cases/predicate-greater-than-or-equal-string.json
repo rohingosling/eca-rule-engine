@@ -1,0 +1,30 @@
+{
+  "id": "predicate-greater-than-or-equal-string",
+  "modelPath": "../models/predicate-model.json",
+  "event": {
+    "type": "test.greaterThanOrEqual.string",
+    "payload": {
+      "greater-than-or-equal-string-value": "same"
+    }
+  },
+  "expectedActionId": "matched",
+  "expectedTrace": {
+    "conditions": [
+      {
+        "condition": "predicate.greaterThanOrEqual.string",
+        "result": true,
+        "reason": "predicate-true",
+        "missingDependencies": []
+      }
+    ],
+    "rules": [
+      {
+        "rule": "rule.greaterThanOrEqual.string",
+        "condition": "predicate.greaterThanOrEqual.string",
+        "conditionResult": true,
+        "action": "matched",
+        "matched": true
+      }
+    ]
+  }
+}

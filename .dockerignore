@@ -1,0 +1,13 @@
+.git
+.gitignore
+**/target
+**/.venv
+**/.mvn-home
+**/__pycache__
+**/*.pyc
+apps/client
+assets
+deployment
+docs
+tools
+contracts/.venv

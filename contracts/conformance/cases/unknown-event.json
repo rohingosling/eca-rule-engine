@@ -1,0 +1,15 @@
+{
+  "id": "unknown-event",
+  "modelPath": "../models/reference-model.json",
+  "event": {
+    "type": "signal.unknown",
+    "payload": {
+      "level": 12
+    }
+  },
+  "expectedActionId": null,
+  "expectedTrace": {
+    "conditions": [],
+    "rules": []
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "id": "predicate-contains-string",
+  "modelPath": "../models/predicate-model.json",
+  "event": {
+    "type": "test.contains.string",
+    "payload": {
+      "contains-string-value": "hay needle stack"
+    }
+  },
+  "expectedActionId": "matched",
+  "expectedTrace": {
+    "conditions": [
+      {
+        "condition": "predicate.contains.string",
+        "result": true,
+        "reason": "predicate-true",
+        "missingDependencies": []
+      }
+    ],
+    "rules": [
+      {
+        "rule": "rule.contains.string",
+        "condition": "predicate.contains.string",
+        "conditionResult": true,
+        "action": "matched",
+        "matched": true
+      }
+    ]
+  }
+}

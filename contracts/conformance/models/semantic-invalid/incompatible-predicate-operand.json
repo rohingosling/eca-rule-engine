@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1.0",
+  "id": "incompatible-predicate-operand",
+  "name": "Incompatible predicate operand",
+  "parameters": [
+    {
+      "id": "active",
+      "name": "Active",
+      "type": "boolean"
+    }
+  ],
+  "payloads": [
+    {
+      "id": "signal-payload",
+      "name": "Signal payload",
+      "parameters": [
+        "active"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "signal.received",
+      "name": "Signal received",
+      "payload": "signal-payload"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "active.greater",
+      "name": "Active greater",
+      "dependencies": [
+        "active"
+      ],
+      "predicate": {
+        "name": "greaterThan",
+        "arguments": {
+          "parameter": "active",
+          "value": true
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "alert",
+      "name": "Alert",
+      "parameters": {}
+    }
+  ],
+  "rules": [
+    {
+      "id": "alert.active",
+      "name": "Alert active",
+      "event": "signal.received",
+      "condition": "active.greater",
+      "action": "alert"
+    }
+  ]
+}

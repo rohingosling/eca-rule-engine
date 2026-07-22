@@ -1,0 +1,6 @@
+{
+  "event": {
+    "type": "signal.received"
+  },
+  "unexpected": true
+}

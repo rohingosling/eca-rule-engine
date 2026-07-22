@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eca-rule-engine.example/schemas/v1/validation-result.schema.json",
+  "title": "ECA model validation result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "valid",
+    "diagnostics"
+  ],
+  "properties": {
+    "valid": {
+      "type": "boolean"
+    },
+    "schemaVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "modelId": {
+      "$ref": "model.schema.json#/$defs/identifier"
+    },
+    "diagnostics": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "diagnostic.schema.json"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "valid": {
+            "const": true
+          }
+        },
+        "required": [
+          "valid"
+        ]
+      },
+      "then": {
+        "properties": {
+          "diagnostics": {
+            "maxItems": 0
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "diagnostics": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "predicate-less-than-or-equal-number",
+  "modelPath": "../models/predicate-model.json",
+  "event": {
+    "type": "test.lessThanOrEqual.number",
+    "payload": {
+      "less-than-or-equal-number-value": 5.0
+    }
+  },
+  "expectedActionId": "matched",
+  "expectedTrace": {
+    "conditions": [
+      {
+        "condition": "predicate.lessThanOrEqual.number",
+        "result": true,
+        "reason": "predicate-true",
+        "missingDependencies": []
+      }
+    ],
+    "rules": [
+      {
+        "rule": "rule.lessThanOrEqual.number",
+        "condition": "predicate.lessThanOrEqual.number",
+        "conditionResult": true,
+        "action": "matched",
+        "matched": true
+      }
+    ]
+  }
+}

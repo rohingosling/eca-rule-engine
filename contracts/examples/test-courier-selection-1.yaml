@@ -1,0 +1,173 @@
+schemaVersion: "1.0"
+id: new-model
+name: New model
+description: ""
+parameters:
+  - id: paramter-vip-indicator
+    name: VIP Indicator
+    description: ""
+    type: boolean
+  - id: parameter-country
+    name: Country
+    description: ""
+    type: string
+  - id: parameter-delivery-type
+    name: Delivery Type
+    description: ""
+    type: string
+  - id: parameter-quantity
+    name: Quantity
+    description: ""
+    type: number
+payloads:
+  - id: payload-order-request
+    name: Order Request
+    description: ""
+    parameters:
+      - parameter-country
+      - parameter-delivery-type
+      - parameter-quantity
+      - paramter-vip-indicator
+events:
+  - id: event-product-x
+    name: Product X
+    description: ""
+    payload: payload-order-request
+  - id: event-product-y
+    name: Product Y
+    description: ""
+    payload: payload-order-request
+  - id: event-product-z
+    name: Product Z
+    description: ""
+    payload: payload-order-request
+conditions:
+  - id: condition-customer-vip-true
+    name: VIP Customer
+    description: ""
+    dependencies:
+      - paramter-vip-indicator
+    predicate:
+      name: equals
+      arguments:
+        parameter: paramter-vip-indicator
+        value: true
+  - id: condition-customer-vip-false
+    name: Non-VIP Customer
+    description: ""
+    dependencies:
+      - paramter-vip-indicator
+    predicate:
+      name: equals
+      arguments:
+        parameter: paramter-vip-indicator
+        value: false
+  - id: condition-country-us
+    name: Country - US
+    description: ""
+    dependencies:
+      - parameter-country
+    predicate:
+      name: equals
+      arguments:
+        parameter: parameter-country
+        value: US
+  - id: condition-country-uk
+    name: Country - UK
+    description: ""
+    dependencies:
+      - parameter-country
+    predicate:
+      name: equals
+      arguments:
+        parameter: parameter-country
+        value: UK
+  - id: condition-country-uae
+    name: Country - UAE
+    description: ""
+    dependencies:
+      - parameter-country
+    predicate:
+      name: equals
+      arguments:
+        parameter: parameter-country
+        value: UAE
+  - id: condition-country-nz
+    name: Country - New Zealand
+    description: ""
+    dependencies:
+      - parameter-country
+    predicate:
+      name: equals
+      arguments:
+        parameter: parameter-country
+        value: NZ
+  - id: condition-delivery-type-standard
+    name: Delivery Type - Standard
+    description: ""
+    dependencies:
+      - parameter-delivery-type
+    predicate:
+      name: equals
+      arguments:
+        parameter: parameter-delivery-type
+        value: standard
+  - id: condition-delivery-type-scheduled
+    name: Delivery Type - Scheduled
+    description: ""
+    dependencies:
+      - parameter-delivery-type
+    predicate:
+      name: equals
+      arguments:
+        parameter: parameter-delivery-type
+        value: scheduled
+  - id: condition-quantity-0-9
+    name: Quantity < 10
+    description: ""
+    dependencies:
+      - parameter-country
+    predicate:
+      name: lessThan
+      arguments:
+        parameter: parameter-country
+        value: 10
+  - id: condition-quantity-10-99
+    name: 10 <= Quantity < 100
+    description: ""
+    dependencies:
+      - parameter-country
+    predicate:
+      name: greaterThan
+      arguments:
+        parameter: parameter-country
+        value: 9
+actions:
+  - id: action-courier-local
+    name: Courier - Local
+    description: ""
+    parameters:
+      command: courier.select.local
+  - id: action-courier-international
+    name: Courier - International
+    description: ""
+    parameters:
+      command: courier.select.international
+  - id: action-courier-same-day
+    name: Courier - Same Day
+    description: ""
+    parameters:
+      command: courier.select.same_day
+rules:
+  - id: rule-local-delivery
+    name: Local Delivery
+    description: ""
+    event: event-product-x
+    condition: condition-delivery-type-standard
+    action: action-courier-local
+  - id: rule-scheduled-delivery
+    name: Scheduled Delivery
+    description: ""
+    event: event-product-x
+    condition: condition-delivery-type-scheduled
+    action: action-courier-local

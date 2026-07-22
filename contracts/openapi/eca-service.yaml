@@ -1,0 +1,172 @@
+openapi: 3.1.0
+info:
+  title: Stateless ECA Rule Engine API
+  version: 1.0.0
+  description: >-
+    Version 1 validation and stateless evaluation interface. Each successful query returns one symbolic action or null;
+    actions are not executed.
+servers:
+  - url: http://localhost:8080
+    description: Local development
+tags:
+  - name: Service
+  - name: Models
+  - name: Evaluations
+paths:
+  /api/v1/health:
+    get:
+      tags: [Service]
+      operationId: getHealth
+      summary: Read service health
+      responses:
+        "200":
+          description: Service is alive
+          headers:
+            X-Correlation-ID:
+              $ref: "#/components/headers/CorrelationId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
+  /api/v1/info:
+    get:
+      tags: [Service]
+      operationId: getInfo
+      summary: Read service and contract capabilities
+      responses:
+        "200":
+          description: Service information
+          headers:
+            X-Correlation-ID:
+              $ref: "#/components/headers/CorrelationId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServiceInfo"
+  /api/v1/model:
+    get:
+      tags: [Models]
+      operationId: getActiveModel
+      summary: Read the immutable active model
+      responses:
+        "200":
+          description: Active model
+          headers:
+            X-Correlation-ID:
+              $ref: "#/components/headers/CorrelationId"
+          content:
+            application/json:
+              schema:
+                $ref: "../schemas/model.schema.json"
+        "404":
+          $ref: "#/components/responses/Problem"
+  /api/v1/models/validate:
+    post:
+      tags: [Models]
+      operationId: validateModel
+      summary: Validate one model
+      requestBody:
+        required: true
+        description: >-
+          Any well-formed JSON value is accepted so the operation can return model diagnostics for structurally invalid
+          documents. The submitted value is validated against the model schema by the operation.
+        content:
+          application/json:
+            schema: {}
+      responses:
+        "200":
+          description: Validation completed, whether valid or invalid
+          headers:
+            X-Correlation-ID:
+              $ref: "#/components/headers/CorrelationId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationResult"
+        "400":
+          $ref: "#/components/responses/Problem"
+        "413":
+          $ref: "#/components/responses/Problem"
+        "415":
+          $ref: "#/components/responses/Problem"
+  /api/v1/evaluations:
+    post:
+      tags: [Evaluations]
+      operationId: evaluateEvent
+      summary: Evaluate one event occurrence
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/evaluate-request.schema.json"
+      responses:
+        "200":
+          description: Canonical nullable selected action and optional trace
+          headers:
+            X-Correlation-ID:
+              $ref: "#/components/headers/CorrelationId"
+          content:
+            application/json:
+              schema:
+                $ref: "../schemas/evaluate-response.schema.json"
+        "400":
+          $ref: "#/components/responses/Problem"
+        "409":
+          $ref: "#/components/responses/Problem"
+        "413":
+          $ref: "#/components/responses/Problem"
+        "415":
+          $ref: "#/components/responses/Problem"
+        "422":
+          description: >-
+            Evaluation is invalid. When matching rules identify distinct actions, the problem code is invalid-evaluation
+            and diagnostics contains the machine-readable code ambiguous-action-selection.
+          headers:
+            X-Correlation-ID:
+              $ref: "#/components/headers/CorrelationId"
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+              example:
+                type: https://eca-rule-engine.example/problems/invalid-evaluation
+                title: Evaluation input is invalid
+                status: 422
+                code: invalid-evaluation
+                correlationId: contract-ambiguity-1
+                detail: Evaluation matched multiple distinct actions.
+                diagnostics:
+                  - code: ambiguous-action-selection
+                    message: >-
+                      Event 'signal.received' matched distinct actions [alert, record] through rules [alert.high.1,
+                      alert.high.2, record.signal].
+                    pointer: /event/type
+components:
+  headers:
+    CorrelationId:
+      description: Request correlation identifier echoed from the request or generated by the service
+      schema:
+        type: string
+        minLength: 1
+  responses:
+    Problem:
+      description: Request could not be completed
+      headers:
+        X-Correlation-ID:
+          $ref: "#/components/headers/CorrelationId"
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+  schemas:
+    Health:
+      $ref: "../schemas/health.schema.json"
+    ServiceInfo:
+      $ref: "../schemas/service-info.schema.json"
+    Diagnostic:
+      $ref: "../schemas/diagnostic.schema.json"
+    ValidationResult:
+      $ref: "../schemas/validation-result.schema.json"
+    Problem:
+      $ref: "../schemas/problem.schema.json"

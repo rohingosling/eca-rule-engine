@@ -1,0 +1,44 @@
+{
+  "name": "eca-model-laboratory",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "npm run contracts:check && tsc -b && vite build",
+    "build:pages": "npm run contracts:check && tsc -b && vite build --base=/eca-rule-engine/",
+    "contracts:generate": "node scripts/generate-contracts.mjs",
+    "contracts:check": "node scripts/generate-contracts.mjs --check",
+    "dev": "vite",
+    "test": "vitest run",
+    "test:browser": "npm run build && playwright test",
+    "test:watch": "vitest",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fluentui/react-components": "9.74.4",
+    "@fluentui/react-icons": "2.0.333",
+    "@xyflow/react": "12.11.2",
+    "katex": "0.18.0",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "yaml": "^2.8.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "26.1.1",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.3",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "axe-core": "^4.12.1",
+    "jsdom": "^29.1.1",
+    "json-schema-to-typescript": "15.0.4",
+    "typescript": "7.0.2",
+    "vite": "8.1.5",
+    "vitest": "4.1.10"
+  }
+}

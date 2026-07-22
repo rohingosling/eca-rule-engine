@@ -1,0 +1,336 @@
+{
+  "schemaVersion": "1.0",
+  "id": "predicate.conformance",
+  "name": "Predicate conformance model",
+  "description": "Exercises every version 1 predicate and the required JSON comparison semantics.",
+  "parameters": [
+    {
+      "id": "equals-object-value",
+      "name": "Equals object value",
+      "type": "object"
+    },
+    {
+      "id": "not-equals-number-value",
+      "name": "Not-equals number value",
+      "type": "number"
+    },
+    {
+      "id": "greater-than-string-value",
+      "name": "Greater-than string value",
+      "type": "string"
+    },
+    {
+      "id": "greater-than-or-equal-string-value",
+      "name": "Greater-than-or-equal string value",
+      "type": "string"
+    },
+    {
+      "id": "less-than-number-value",
+      "name": "Less-than number value",
+      "type": "number"
+    },
+    {
+      "id": "less-than-or-equal-number-value",
+      "name": "Less-than-or-equal number value",
+      "type": "number"
+    },
+    {
+      "id": "contains-array-value",
+      "name": "Contains array value",
+      "type": "array"
+    },
+    {
+      "id": "contains-string-value",
+      "name": "Contains string value",
+      "type": "string"
+    }
+  ],
+  "payloads": [
+    {
+      "id": "payload.equals.object",
+      "name": "Object-equality payload",
+      "parameters": [
+        "equals-object-value"
+      ]
+    },
+    {
+      "id": "payload.notEquals.number",
+      "name": "Numeric-inequality payload",
+      "parameters": [
+        "not-equals-number-value"
+      ]
+    },
+    {
+      "id": "payload.greaterThan.string",
+      "name": "String greater-than payload",
+      "parameters": [
+        "greater-than-string-value"
+      ]
+    },
+    {
+      "id": "payload.greaterThanOrEqual.string",
+      "name": "String greater-than-or-equal payload",
+      "parameters": [
+        "greater-than-or-equal-string-value"
+      ]
+    },
+    {
+      "id": "payload.lessThan.number",
+      "name": "Number less-than payload",
+      "parameters": [
+        "less-than-number-value"
+      ]
+    },
+    {
+      "id": "payload.lessThanOrEqual.number",
+      "name": "Number less-than-or-equal payload",
+      "parameters": [
+        "less-than-or-equal-number-value"
+      ]
+    },
+    {
+      "id": "payload.contains.array",
+      "name": "Array-contains payload",
+      "parameters": [
+        "contains-array-value"
+      ]
+    },
+    {
+      "id": "payload.contains.string",
+      "name": "String-contains payload",
+      "parameters": [
+        "contains-string-value"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "test.equals.object",
+      "name": "Test object equality",
+      "payload": "payload.equals.object"
+    },
+    {
+      "id": "test.notEquals.number",
+      "name": "Test numeric inequality",
+      "payload": "payload.notEquals.number"
+    },
+    {
+      "id": "test.greaterThan.string",
+      "name": "Test string greater than",
+      "payload": "payload.greaterThan.string"
+    },
+    {
+      "id": "test.greaterThanOrEqual.string",
+      "name": "Test string greater than or equal",
+      "payload": "payload.greaterThanOrEqual.string"
+    },
+    {
+      "id": "test.lessThan.number",
+      "name": "Test number less than",
+      "payload": "payload.lessThan.number"
+    },
+    {
+      "id": "test.lessThanOrEqual.number",
+      "name": "Test number less than or equal",
+      "payload": "payload.lessThanOrEqual.number"
+    },
+    {
+      "id": "test.contains.array",
+      "name": "Test array membership",
+      "payload": "payload.contains.array"
+    },
+    {
+      "id": "test.contains.string",
+      "name": "Test substring membership",
+      "payload": "payload.contains.string"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "predicate.equals.object",
+      "name": "Objects are structurally equal",
+      "dependencies": [
+        "equals-object-value"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "equals-object-value",
+          "value": {
+            "alpha": 1,
+            "nested": [
+              2,
+              3
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "predicate.notEquals.number",
+      "name": "Numbers are not equal",
+      "dependencies": [
+        "not-equals-number-value"
+      ],
+      "predicate": {
+        "name": "notEquals",
+        "arguments": {
+          "parameter": "not-equals-number-value",
+          "value": 2
+        }
+      }
+    },
+    {
+      "id": "predicate.greaterThan.string",
+      "name": "String is greater by Unicode code point",
+      "dependencies": [
+        "greater-than-string-value"
+      ],
+      "predicate": {
+        "name": "greaterThan",
+        "arguments": {
+          "parameter": "greater-than-string-value",
+          "value": "\uE000"
+        }
+      }
+    },
+    {
+      "id": "predicate.greaterThanOrEqual.string",
+      "name": "String is greater than or equal",
+      "dependencies": [
+        "greater-than-or-equal-string-value"
+      ],
+      "predicate": {
+        "name": "greaterThanOrEqual",
+        "arguments": {
+          "parameter": "greater-than-or-equal-string-value",
+          "value": "same"
+        }
+      }
+    },
+    {
+      "id": "predicate.lessThan.number",
+      "name": "Number is less than",
+      "dependencies": [
+        "less-than-number-value"
+      ],
+      "predicate": {
+        "name": "lessThan",
+        "arguments": {
+          "parameter": "less-than-number-value",
+          "value": 5
+        }
+      }
+    },
+    {
+      "id": "predicate.lessThanOrEqual.number",
+      "name": "Number is less than or equal",
+      "dependencies": [
+        "less-than-or-equal-number-value"
+      ],
+      "predicate": {
+        "name": "lessThanOrEqual",
+        "arguments": {
+          "parameter": "less-than-or-equal-number-value",
+          "value": 5
+        }
+      }
+    },
+    {
+      "id": "predicate.contains.array",
+      "name": "Array contains a structurally equal object",
+      "dependencies": [
+        "contains-array-value"
+      ],
+      "predicate": {
+        "name": "contains",
+        "arguments": {
+          "parameter": "contains-array-value",
+          "value": {
+            "alpha": 1,
+            "beta": 2
+          }
+        }
+      }
+    },
+    {
+      "id": "predicate.contains.string",
+      "name": "String contains a substring",
+      "dependencies": [
+        "contains-string-value"
+      ],
+      "predicate": {
+        "name": "contains",
+        "arguments": {
+          "parameter": "contains-string-value",
+          "value": "needle"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "matched",
+      "name": "Matched",
+      "parameters": {}
+    }
+  ],
+  "rules": [
+    {
+      "id": "rule.equals.object",
+      "name": "Select for equal objects",
+      "event": "test.equals.object",
+      "condition": "predicate.equals.object",
+      "action": "matched"
+    },
+    {
+      "id": "rule.notEquals.number",
+      "name": "Select for unequal numbers",
+      "event": "test.notEquals.number",
+      "condition": "predicate.notEquals.number",
+      "action": "matched"
+    },
+    {
+      "id": "rule.greaterThan.string",
+      "name": "Select for greater strings",
+      "event": "test.greaterThan.string",
+      "condition": "predicate.greaterThan.string",
+      "action": "matched"
+    },
+    {
+      "id": "rule.greaterThanOrEqual.string",
+      "name": "Select for greater or equal strings",
+      "event": "test.greaterThanOrEqual.string",
+      "condition": "predicate.greaterThanOrEqual.string",
+      "action": "matched"
+    },
+    {
+      "id": "rule.lessThan.number",
+      "name": "Select for lesser numbers",
+      "event": "test.lessThan.number",
+      "condition": "predicate.lessThan.number",
+      "action": "matched"
+    },
+    {
+      "id": "rule.lessThanOrEqual.number",
+      "name": "Select for lesser or equal numbers",
+      "event": "test.lessThanOrEqual.number",
+      "condition": "predicate.lessThanOrEqual.number",
+      "action": "matched"
+    },
+    {
+      "id": "rule.contains.array",
+      "name": "Select for array membership",
+      "event": "test.contains.array",
+      "condition": "predicate.contains.array",
+      "action": "matched"
+    },
+    {
+      "id": "rule.contains.string",
+      "name": "Select for substring membership",
+      "event": "test.contains.string",
+      "condition": "predicate.contains.string",
+      "action": "matched"
+    }
+  ]
+}

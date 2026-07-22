@@ -1,0 +1,21 @@
+{
+  "implementation": "eca-rule-engine",
+  "version": "0.1.0",
+  "apiVersion": "1",
+  "supportedSchemaVersions": [
+    "1.0"
+  ],
+  "predicates": [
+    "always",
+    "contains",
+    "equals",
+    "greaterThan",
+    "greaterThanOrEqual",
+    "lessThan",
+    "lessThanOrEqual",
+    "notEquals"
+  ],
+  "activeModelAvailable": true,
+  "activeModelId": "reference",
+  "activeModelSchemaVersion": "1.0"
+}

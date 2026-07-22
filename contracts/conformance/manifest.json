@@ -1,0 +1,427 @@
+{
+  "contractVersion": "1.0",
+  "schemaCases": [
+    {
+      "id": "model.reference.valid",
+      "schemaPath": "schemas/model.schema.json",
+      "documentPath": "conformance/models/reference-model.json",
+      "expectedValid": true
+    },
+    {
+      "id": "model.same-action-multiple-rules.valid",
+      "schemaPath": "schemas/model.schema.json",
+      "documentPath": "conformance/models/same-action-multiple-rules-model.json",
+      "expectedValid": true
+    },
+    {
+      "id": "model.example.computer-parts-courier-routing.valid",
+      "schemaPath": "schemas/model.schema.json",
+      "documentPath": "examples/computer-parts-courier-routing.json",
+      "expectedValid": true
+    },
+    {
+      "id": "model.missing-rules.invalid",
+      "schemaPath": "schemas/model.schema.json",
+      "documentPath": "conformance/models/structural-invalid/missing-rules.json",
+      "expectedValid": false
+    },
+    {
+      "id": "model.always-with-dependency.invalid",
+      "schemaPath": "schemas/model.schema.json",
+      "documentPath": "conformance/models/structural-invalid/always-with-dependency.json",
+      "expectedValid": false
+    },
+    {
+      "id": "model.unknown-predicate.invalid",
+      "schemaPath": "schemas/model.schema.json",
+      "documentPath": "conformance/models/structural-invalid/unknown-predicate.json",
+      "expectedValid": false
+    },
+    {
+      "id": "evaluate-request.valid",
+      "schemaPath": "schemas/evaluate-request.schema.json",
+      "documentPath": "conformance/schema/valid/evaluate-request.json",
+      "expectedValid": true
+    },
+    {
+      "id": "evaluate-request.extra-property.invalid",
+      "schemaPath": "schemas/evaluate-request.schema.json",
+      "documentPath": "conformance/schema/invalid/evaluate-request-extra-property.json",
+      "expectedValid": false
+    },
+    {
+      "id": "evaluate-request.invalid-payload-property.invalid",
+      "schemaPath": "schemas/evaluate-request.schema.json",
+      "documentPath": "conformance/schema/invalid/evaluate-request-invalid-payload-property.json",
+      "expectedValid": false
+    },
+    {
+      "id": "evaluate-response.valid",
+      "schemaPath": "schemas/evaluate-response.schema.json",
+      "documentPath": "conformance/schema/valid/evaluate-response.json",
+      "expectedValid": true
+    },
+    {
+      "id": "evaluate-response.no-action.valid",
+      "schemaPath": "schemas/evaluate-response.schema.json",
+      "documentPath": "conformance/schema/valid/evaluate-response-no-action.json",
+      "expectedValid": true
+    },
+    {
+      "id": "evaluate-response.action-array.invalid",
+      "schemaPath": "schemas/evaluate-response.schema.json",
+      "documentPath": "conformance/schema/invalid/evaluate-response-action-array.json",
+      "expectedValid": false
+    },
+    {
+      "id": "evaluate-response.empty-action-array.invalid",
+      "schemaPath": "schemas/evaluate-response.schema.json",
+      "documentPath": "conformance/schema/invalid/evaluate-response-empty-action-array.json",
+      "expectedValid": false
+    },
+    {
+      "id": "evaluate-response.singleton-action-array.invalid",
+      "schemaPath": "schemas/evaluate-response.schema.json",
+      "documentPath": "conformance/schema/invalid/evaluate-response-singleton-action-array.json",
+      "expectedValid": false
+    },
+    {
+      "id": "evaluate-response.legacy-selected-actions.invalid",
+      "schemaPath": "schemas/evaluate-response.schema.json",
+      "documentPath": "conformance/schema/invalid/evaluate-response-legacy-selected-actions.json",
+      "expectedValid": false
+    },
+    {
+      "id": "evaluate-response.legacy-trace-selected.invalid",
+      "schemaPath": "schemas/evaluate-response.schema.json",
+      "documentPath": "conformance/schema/invalid/evaluate-response-legacy-trace-selected.json",
+      "expectedValid": false
+    },
+    {
+      "id": "evaluate-response.missing-selected-action.invalid",
+      "schemaPath": "schemas/evaluate-response.schema.json",
+      "documentPath": "conformance/schema/invalid/evaluate-response-missing-selected-action.json",
+      "expectedValid": false
+    },
+    {
+      "id": "diagnostic.valid",
+      "schemaPath": "schemas/diagnostic.schema.json",
+      "documentPath": "conformance/schema/valid/diagnostic.json",
+      "expectedValid": true
+    },
+    {
+      "id": "diagnostic.invalid-code.invalid",
+      "schemaPath": "schemas/diagnostic.schema.json",
+      "documentPath": "conformance/schema/invalid/diagnostic-invalid-code.json",
+      "expectedValid": false
+    },
+    {
+      "id": "validation-result.valid",
+      "schemaPath": "schemas/validation-result.schema.json",
+      "documentPath": "conformance/schema/valid/validation-result.json",
+      "expectedValid": true
+    },
+    {
+      "id": "validation-result.valid-with-diagnostic.invalid",
+      "schemaPath": "schemas/validation-result.schema.json",
+      "documentPath": "conformance/schema/invalid/validation-result-valid-with-diagnostic.json",
+      "expectedValid": false
+    },
+    {
+      "id": "problem.valid",
+      "schemaPath": "schemas/problem.schema.json",
+      "documentPath": "conformance/schema/valid/problem.json",
+      "expectedValid": true
+    },
+    {
+      "id": "problem.ambiguous-action-selection.valid",
+      "schemaPath": "schemas/problem.schema.json",
+      "documentPath": "conformance/schema/valid/problem-ambiguous-action-selection.json",
+      "expectedValid": true
+    },
+    {
+      "id": "problem.missing-correlation.invalid",
+      "schemaPath": "schemas/problem.schema.json",
+      "documentPath": "conformance/schema/invalid/problem-missing-correlation.json",
+      "expectedValid": false
+    },
+    {
+      "id": "problem.invalid-type-uri.invalid",
+      "schemaPath": "schemas/problem.schema.json",
+      "documentPath": "conformance/schema/invalid/problem-invalid-type-uri.json",
+      "expectedValid": false
+    },
+    {
+      "id": "health.valid",
+      "schemaPath": "schemas/health.schema.json",
+      "documentPath": "conformance/schema/valid/health.json",
+      "expectedValid": true
+    },
+    {
+      "id": "health.extra-property.invalid",
+      "schemaPath": "schemas/health.schema.json",
+      "documentPath": "conformance/schema/invalid/health-extra-property.json",
+      "expectedValid": false
+    },
+    {
+      "id": "service-info.valid",
+      "schemaPath": "schemas/service-info.schema.json",
+      "documentPath": "conformance/schema/valid/service-info.json",
+      "expectedValid": true
+    },
+    {
+      "id": "service-info.missing-active-model-metadata.invalid",
+      "schemaPath": "schemas/service-info.schema.json",
+      "documentPath": "conformance/schema/invalid/service-info-missing-active-model-metadata.json",
+      "expectedValid": false
+    }
+  ],
+  "modelValidationCases": [
+    {
+      "id": "model.reference.valid",
+      "modelPath": "conformance/models/reference-model.json",
+      "expectedDiagnostics": []
+    },
+    {
+      "id": "model.same-action-multiple-rules.valid",
+      "modelPath": "conformance/models/same-action-multiple-rules-model.json",
+      "expectedDiagnostics": []
+    },
+    {
+      "id": "model.example.computer-parts-courier-routing.valid",
+      "modelPath": "examples/computer-parts-courier-routing.json",
+      "expectedDiagnostics": []
+    },
+    {
+      "id": "model.duplicate-identifiers.invalid",
+      "modelPath": "conformance/models/semantic-invalid/duplicate-identifiers.json",
+      "expectedDiagnostics": [
+        {
+          "code": "duplicate-action-identifier",
+          "pointer": "/actions/1/id"
+        },
+        {
+          "code": "duplicate-condition-identifier",
+          "pointer": "/conditions/1/id"
+        },
+        {
+          "code": "duplicate-event-identifier",
+          "pointer": "/events/1/id"
+        },
+        {
+          "code": "duplicate-parameter-identifier",
+          "pointer": "/parameters/1/id"
+        },
+        {
+          "code": "duplicate-payload-identifier",
+          "pointer": "/payloads/1/id"
+        },
+        {
+          "code": "duplicate-rule-identifier",
+          "pointer": "/rules/1/id"
+        }
+      ]
+    },
+    {
+      "id": "model.unresolved-references.invalid",
+      "modelPath": "conformance/models/semantic-invalid/unresolved-references.json",
+      "expectedDiagnostics": [
+        {
+          "code": "unresolved-payload-reference",
+          "pointer": "/events/0/payload"
+        },
+        {
+          "code": "unresolved-parameter-reference",
+          "pointer": "/payloads/0/parameters/0"
+        },
+        {
+          "code": "unresolved-action-reference",
+          "pointer": "/rules/0/action"
+        },
+        {
+          "code": "unresolved-condition-reference",
+          "pointer": "/rules/0/condition"
+        },
+        {
+          "code": "unresolved-event-reference",
+          "pointer": "/rules/0/event"
+        }
+      ]
+    },
+    {
+      "id": "model.unresolved-event-payload-no-cascade.invalid",
+      "modelPath": "conformance/models/semantic-invalid/unresolved-event-payload-no-cascade.json",
+      "expectedDiagnostics": [
+        {
+          "code": "unresolved-payload-reference",
+          "pointer": "/events/0/payload"
+        }
+      ]
+    },
+    {
+      "id": "model.unresolved-payload-parameter-no-cascade.invalid",
+      "modelPath": "conformance/models/semantic-invalid/unresolved-payload-parameter-no-cascade.json",
+      "expectedDiagnostics": [
+        {
+          "code": "unresolved-parameter-reference",
+          "pointer": "/payloads/0/parameters/0"
+        }
+      ]
+    },
+    {
+      "id": "model.predicate-parameter-mismatch.invalid",
+      "modelPath": "conformance/models/semantic-invalid/predicate-parameter-mismatch.json",
+      "expectedDiagnostics": [
+        {
+          "code": "predicate-dependency-mismatch",
+          "pointer": "/conditions/0/predicate/arguments/parameter"
+        }
+      ]
+    },
+    {
+      "id": "model.undeclared-dependency.invalid",
+      "modelPath": "conformance/models/semantic-invalid/undeclared-dependency.json",
+      "expectedDiagnostics": [
+        {
+          "code": "undeclared-condition-dependency",
+          "pointer": "/rules/0/condition"
+        }
+      ]
+    },
+    {
+      "id": "model.incompatible-comparison-value.invalid",
+      "modelPath": "conformance/models/semantic-invalid/incompatible-comparison-value.json",
+      "expectedDiagnostics": [
+        {
+          "code": "incompatible-comparison-value",
+          "pointer": "/conditions/0/predicate/arguments/value"
+        }
+      ]
+    },
+    {
+      "id": "model.incompatible-predicate-operand.invalid",
+      "modelPath": "conformance/models/semantic-invalid/incompatible-predicate-operand.json",
+      "expectedDiagnostics": [
+        {
+          "code": "incompatible-predicate-operand",
+          "pointer": "/conditions/0/predicate/name"
+        }
+      ]
+    },
+    {
+      "id": "model.duplicate-diagnostic.invalid",
+      "modelPath": "conformance/models/semantic-invalid/duplicate-diagnostic.json",
+      "expectedDiagnostics": [
+        {
+          "code": "incompatible-predicate-operand",
+          "pointer": "/conditions/0/predicate/name"
+        }
+      ]
+    },
+    {
+      "id": "model.duplicate-parameter-first-definition.invalid",
+      "modelPath": "conformance/models/semantic-invalid/duplicate-parameter-first-definition.json",
+      "expectedDiagnostics": [
+        {
+          "code": "duplicate-parameter-identifier",
+          "pointer": "/parameters/1/id"
+        }
+      ]
+    }
+  ],
+  "evaluationCases": [
+    {
+      "id": "absent-payload",
+      "casePath": "conformance/cases/absent-payload.json"
+    },
+    {
+      "id": "ambiguous-action-selection",
+      "casePath": "conformance/cases/ambiguous-action-selection.json"
+    },
+    {
+      "id": "missing-dependency",
+      "casePath": "conformance/cases/missing-dependency.json"
+    },
+    {
+      "id": "prototype-named-missing-dependency",
+      "casePath": "conformance/cases/prototype-named-missing-dependency.json"
+    },
+    {
+      "id": "same-action-multiple-rules",
+      "casePath": "conformance/cases/same-action-multiple-rules.json"
+    },
+    {
+      "id": "unknown-event",
+      "casePath": "conformance/cases/unknown-event.json"
+    },
+    {
+      "id": "predicate-equals-object-order",
+      "casePath": "conformance/cases/predicate-equals-object-order.json"
+    },
+    {
+      "id": "predicate-not-equals-number",
+      "casePath": "conformance/cases/predicate-not-equals-number.json"
+    },
+    {
+      "id": "predicate-greater-than-string",
+      "casePath": "conformance/cases/predicate-greater-than-string.json"
+    },
+    {
+      "id": "predicate-greater-than-or-equal-string",
+      "casePath": "conformance/cases/predicate-greater-than-or-equal-string.json"
+    },
+    {
+      "id": "predicate-less-than-number",
+      "casePath": "conformance/cases/predicate-less-than-number.json"
+    },
+    {
+      "id": "predicate-less-than-or-equal-number",
+      "casePath": "conformance/cases/predicate-less-than-or-equal-number.json"
+    },
+    {
+      "id": "predicate-contains-array-structural",
+      "casePath": "conformance/cases/predicate-contains-array-structural.json"
+    },
+    {
+      "id": "predicate-contains-string",
+      "casePath": "conformance/cases/predicate-contains-string.json"
+    }
+  ],
+  "propertyCases": [
+    {
+      "id": "determinism",
+      "kind": "determinism",
+      "sourceCase": "absent-payload",
+      "repetitions": 100
+    },
+    {
+      "id": "replay",
+      "kind": "replay",
+      "sourceCase": "absent-payload",
+      "interveningCase": "unknown-event",
+      "repetitions": 100
+    },
+    {
+      "id": "payload-locality",
+      "kind": "payload-locality",
+      "sourceCase": "absent-payload",
+      "parameter": "source",
+      "values": [
+        "sensor-a",
+        "sensor-b"
+      ]
+    },
+    {
+      "id": "admissible-extension-stability",
+      "kind": "admissible-extension-stability",
+      "sourceCase": "predicate-not-equals-number",
+      "addedRule": {
+        "id": "property.not-equals.number",
+        "name": "Property duplicate numeric inequality match",
+        "event": "test.notEquals.number",
+        "condition": "predicate.notEquals.number",
+        "action": "matched"
+      }
+    }
+  ]
+}

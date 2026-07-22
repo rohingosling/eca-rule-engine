@@ -1,0 +1,35 @@
+{
+  "id": "predicate-contains-array-structural",
+  "modelPath": "../models/predicate-model.json",
+  "event": {
+    "type": "test.contains.array",
+    "payload": {
+      "contains-array-value": [
+        {
+          "beta": 2,
+          "alpha": 1.0
+        }
+      ]
+    }
+  },
+  "expectedActionId": "matched",
+  "expectedTrace": {
+    "conditions": [
+      {
+        "condition": "predicate.contains.array",
+        "result": true,
+        "reason": "predicate-true",
+        "missingDependencies": []
+      }
+    ],
+    "rules": [
+      {
+        "rule": "rule.contains.array",
+        "condition": "predicate.contains.array",
+        "conditionResult": true,
+        "action": "matched",
+        "matched": true
+      }
+    ]
+  }
+}

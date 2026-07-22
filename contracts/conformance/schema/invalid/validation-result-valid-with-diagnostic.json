@@ -1,0 +1,9 @@
+{
+  "valid": true,
+  "diagnostics": [
+    {
+      "code": "unexpected-diagnostic",
+      "message": "A valid result cannot carry a diagnostic."
+    }
+  ]
+}

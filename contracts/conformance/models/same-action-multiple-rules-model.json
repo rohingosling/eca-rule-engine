@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "1.0",
+  "id": "same-action-multiple-rules",
+  "name": "Same action from multiple rules conformance model",
+  "description": "Two matching rules identify the same action, so the query remains unambiguous.",
+  "parameters": [],
+  "payloads": [],
+  "events": [
+    {
+      "id": "signal.received",
+      "name": "Signal received"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "always.one",
+      "name": "Always one",
+      "dependencies": [],
+      "predicate": {
+        "name": "always",
+        "arguments": {}
+      }
+    },
+    {
+      "id": "always.two",
+      "name": "Always two",
+      "dependencies": [],
+      "predicate": {
+        "name": "always",
+        "arguments": {}
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "record",
+      "name": "Record",
+      "parameters": {
+        "severity": "information"
+      }
+    }
+  ],
+  "rules": [
+    {
+      "id": "record.signal.1",
+      "name": "Record the signal first mapping",
+      "event": "signal.received",
+      "condition": "always.one",
+      "action": "record"
+    },
+    {
+      "id": "record.signal.2",
+      "name": "Record the signal second mapping",
+      "event": "signal.received",
+      "condition": "always.two",
+      "action": "record"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "apiVersion": "1",
+  "schemaVersion": "1.0",
+  "modelId": "reference",
+  "eventType": "signal.received",
+  "selectedAction": null,
+  "trace": {
+    "conditions": [],
+    "rules": [
+      {
+        "rule": "record.signal",
+        "condition": "always",
+        "conditionResult": true,
+        "action": "record",
+        "selected": true
+      }
+    ]
+  }
+}

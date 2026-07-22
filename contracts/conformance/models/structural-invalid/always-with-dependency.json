@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0",
+  "id": "always-with-dependency",
+  "name": "Always with dependency",
+  "parameters": [],
+  "payloads": [],
+  "events": [],
+  "conditions": [
+    {
+      "id": "invalid.always",
+      "name": "Invalid always condition",
+      "dependencies": [
+        "level"
+      ],
+      "predicate": {
+        "name": "always",
+        "arguments": {}
+      }
+    }
+  ],
+  "actions": [],
+  "rules": []
+}

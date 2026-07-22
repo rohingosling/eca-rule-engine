@@ -1,0 +1,30 @@
+{
+  "id": "predicate-not-equals-number",
+  "modelPath": "../models/predicate-model.json",
+  "event": {
+    "type": "test.notEquals.number",
+    "payload": {
+      "not-equals-number-value": 3
+    }
+  },
+  "expectedActionId": "matched",
+  "expectedTrace": {
+    "conditions": [
+      {
+        "condition": "predicate.notEquals.number",
+        "result": true,
+        "reason": "predicate-true",
+        "missingDependencies": []
+      }
+    ],
+    "rules": [
+      {
+        "rule": "rule.notEquals.number",
+        "condition": "predicate.notEquals.number",
+        "conditionResult": true,
+        "action": "matched",
+        "matched": true
+      }
+    ]
+  }
+}

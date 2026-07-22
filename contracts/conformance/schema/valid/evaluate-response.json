@@ -1,0 +1,55 @@
+{
+  "apiVersion": "1",
+  "schemaVersion": "1.0",
+  "modelId": "reference",
+  "eventType": "signal.received",
+  "selectedAction": {
+    "id": "record",
+    "name": "Record",
+    "description": "Records the received signal for later analysis.",
+    "parameters": {
+      "severity": "information"
+    }
+  },
+  "trace": {
+    "conditions": [
+      {
+        "condition": "always",
+        "result": true,
+        "reason": "predicate-true",
+        "missingDependencies": []
+      },
+      {
+        "condition": "level.high",
+        "result": false,
+        "reason": "missing-dependency",
+        "missingDependencies": [
+          "level"
+        ]
+      }
+    ],
+    "rules": [
+      {
+        "rule": "alert.high.1",
+        "condition": "level.high",
+        "conditionResult": false,
+        "action": "alert",
+        "matched": false
+      },
+      {
+        "rule": "alert.high.2",
+        "condition": "level.high",
+        "conditionResult": false,
+        "action": "alert",
+        "matched": false
+      },
+      {
+        "rule": "record.signal",
+        "condition": "always",
+        "conditionResult": true,
+        "action": "record",
+        "matched": true
+      }
+    ]
+  }
+}

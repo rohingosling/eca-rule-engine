@@ -1,0 +1,36 @@
+{
+  "id": "predicate-equals-object-order",
+  "modelPath": "../models/predicate-model.json",
+  "event": {
+    "type": "test.equals.object",
+    "payload": {
+      "equals-object-value": {
+        "nested": [
+          2,
+          3
+        ],
+        "alpha": 1.0
+      }
+    }
+  },
+  "expectedActionId": "matched",
+  "expectedTrace": {
+    "conditions": [
+      {
+        "condition": "predicate.equals.object",
+        "result": true,
+        "reason": "predicate-true",
+        "missingDependencies": []
+      }
+    ],
+    "rules": [
+      {
+        "rule": "rule.equals.object",
+        "condition": "predicate.equals.object",
+        "conditionResult": true,
+        "action": "matched",
+        "matched": true
+      }
+    ]
+  }
+}

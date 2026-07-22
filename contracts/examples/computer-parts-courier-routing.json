@@ -1,0 +1,581 @@
+{
+  "schemaVersion": "1.0",
+  "id": "computer-parts-courier-routing",
+  "name": "Computer Parts Courier Routing",
+  "description": "A demonstration model for selecting one of three couriers for computer-part orders. Version 1 predicates compare one payload value at a time, so courierRoutingProfile is a derived, mutually exclusive value calculated from addressScope, areaType, itemSize, fragile, sameDayFeePaid, and the selected product's restrictions.",
+  "parameters": [
+    {
+      "id": "addressScope",
+      "name": "Address scope",
+      "type": "string",
+      "description": "Order destination: local or international."
+    },
+    {
+      "id": "areaType",
+      "name": "Area type",
+      "type": "string",
+      "description": "Local delivery area: urban or rural."
+    },
+    {
+      "id": "itemSize",
+      "name": "Item size",
+      "type": "string",
+      "description": "Parcel size: small, medium, or large."
+    },
+    {
+      "id": "fragile",
+      "name": "Fragile",
+      "type": "boolean",
+      "description": "Whether the packed product requires fragile handling."
+    },
+    {
+      "id": "sameDayFeePaid",
+      "name": "Same-day fee paid",
+      "type": "boolean",
+      "description": "Whether the customer paid the optional same-day delivery fee."
+    },
+    {
+      "id": "courierRoutingProfile",
+      "name": "Courier routing profile",
+      "type": "string",
+      "description": "Derived route: local-standard, local-same-day, international, or unavailable."
+    }
+  ],
+  "payloads": [
+    {
+      "id": "order-routing-payload",
+      "name": "Order routing payload",
+      "description": "Reusable order details used by every product event in this demonstration.",
+      "parameters": [
+        "addressScope",
+        "areaType",
+        "itemSize",
+        "fragile",
+        "sameDayFeePaid",
+        "courierRoutingProfile"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "product.cpu",
+      "name": "Desktop CPU",
+      "description": "Small, non-fragile parcel. International sale and local same-day delivery are allowed.",
+      "payload": "order-routing-payload"
+    },
+    {
+      "id": "product.graphics-card",
+      "name": "Graphics Card",
+      "description": "Medium, fragile parcel. International sale is allowed; same-day delivery is not allowed because the parcel is fragile.",
+      "payload": "order-routing-payload"
+    },
+    {
+      "id": "product.motherboard",
+      "name": "ATX Motherboard",
+      "description": "Medium, fragile parcel. International sale is allowed; same-day delivery is not allowed because the parcel is fragile.",
+      "payload": "order-routing-payload"
+    },
+    {
+      "id": "product.desktop-case",
+      "name": "Full-Tower Desktop Case",
+      "description": "Large, non-fragile parcel. International sale is allowed; same-day delivery is not allowed because the parcel is large.",
+      "payload": "order-routing-payload"
+    },
+    {
+      "id": "product.memory-kit",
+      "name": "DDR5 Memory Kit",
+      "description": "Small, non-fragile parcel. International sale and local same-day delivery are allowed.",
+      "payload": "order-routing-payload"
+    },
+    {
+      "id": "product.nvme-ssd",
+      "name": "NVMe Solid-State Drive",
+      "description": "Small, non-fragile parcel. International sale and local same-day delivery are allowed.",
+      "payload": "order-routing-payload"
+    },
+    {
+      "id": "product.hard-drive",
+      "name": "Mechanical Hard Drive",
+      "description": "Small, fragile parcel. International sale is allowed; same-day delivery is not allowed because the parcel is fragile.",
+      "payload": "order-routing-payload"
+    },
+    {
+      "id": "product.power-supply",
+      "name": "Modular Power Supply",
+      "description": "Medium, non-fragile parcel. International sale and local same-day delivery are allowed.",
+      "payload": "order-routing-payload"
+    },
+    {
+      "id": "product.gaming-monitor",
+      "name": "Ultrawide Gaming Monitor",
+      "description": "Large, fragile parcel. International sale is allowed; same-day delivery is not allowed because the parcel is large and fragile.",
+      "payload": "order-routing-payload"
+    },
+    {
+      "id": "product.mechanical-keyboard",
+      "name": "Mechanical Keyboard",
+      "description": "Medium, non-fragile parcel. International sale and local same-day delivery are allowed.",
+      "payload": "order-routing-payload"
+    },
+    {
+      "id": "product.liquid-cooling-kit",
+      "name": "Liquid Cooling Kit",
+      "description": "Medium, fragile parcel containing coolant. This demonstration supplier restricts it to local standard delivery; international sale and same-day delivery are unavailable.",
+      "payload": "order-routing-payload"
+    },
+    {
+      "id": "product.ups-battery-backup",
+      "name": "UPS Battery Backup",
+      "description": "Large parcel containing a regulated battery. This demonstration supplier restricts it to local standard delivery; international sale and same-day delivery are unavailable.",
+      "payload": "order-routing-payload"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "address.local",
+      "name": "Address is local",
+      "description": "Describes the raw destination scope used to derive the mutually exclusive courier routing profile.",
+      "dependencies": [
+        "addressScope"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "addressScope",
+          "value": "local"
+        }
+      }
+    },
+    {
+      "id": "address.international",
+      "name": "Address is international",
+      "description": "Describes the raw destination scope used to derive the mutually exclusive courier routing profile.",
+      "dependencies": [
+        "addressScope"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "addressScope",
+          "value": "international"
+        }
+      }
+    },
+    {
+      "id": "area.urban",
+      "name": "Address is urban",
+      "description": "Same-day delivery requires a local urban address.",
+      "dependencies": [
+        "areaType"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "areaType",
+          "value": "urban"
+        }
+      }
+    },
+    {
+      "id": "area.rural",
+      "name": "Address is rural",
+      "description": "Rural local orders use standard local delivery rather than same-day delivery.",
+      "dependencies": [
+        "areaType"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "areaType",
+          "value": "rural"
+        }
+      }
+    },
+    {
+      "id": "size.small",
+      "name": "Package is small",
+      "description": "A raw package-size condition used when deriving same-day eligibility.",
+      "dependencies": [
+        "itemSize"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "itemSize",
+          "value": "small"
+        }
+      }
+    },
+    {
+      "id": "size.medium",
+      "name": "Package is medium",
+      "description": "A raw package-size condition used when deriving same-day eligibility.",
+      "dependencies": [
+        "itemSize"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "itemSize",
+          "value": "medium"
+        }
+      }
+    },
+    {
+      "id": "size.large",
+      "name": "Package is large",
+      "description": "Large packages cannot use same-day delivery.",
+      "dependencies": [
+        "itemSize"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "itemSize",
+          "value": "large"
+        }
+      }
+    },
+    {
+      "id": "package.fragile",
+      "name": "Package is fragile",
+      "description": "Fragile packages cannot use same-day delivery.",
+      "dependencies": [
+        "fragile"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "fragile",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "package.not-fragile",
+      "name": "Package is not fragile",
+      "description": "Non-fragile handling is required for same-day delivery.",
+      "dependencies": [
+        "fragile"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "fragile",
+          "value": false
+        }
+      }
+    },
+    {
+      "id": "same-day.fee-paid",
+      "name": "Same-day fee is paid",
+      "description": "The customer must pay the extra fee before same-day delivery can be selected.",
+      "dependencies": [
+        "sameDayFeePaid"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "sameDayFeePaid",
+          "value": true
+        }
+      }
+    },
+    {
+      "id": "route.local-standard",
+      "name": "Route by standard local courier",
+      "description": "The derived routing profile is local-standard. It covers local rural orders and local urban orders that are not eligible for same-day delivery.",
+      "dependencies": [
+        "courierRoutingProfile"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "courierRoutingProfile",
+          "value": "local-standard"
+        }
+      }
+    },
+    {
+      "id": "route.local-same-day",
+      "name": "Route by same-day courier",
+      "description": "The derived routing profile is local-same-day: local, urban, fee paid, not large, not fragile, and allowed for the selected product.",
+      "dependencies": [
+        "courierRoutingProfile"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "courierRoutingProfile",
+          "value": "local-same-day"
+        }
+      }
+    },
+    {
+      "id": "route.international",
+      "name": "Route by international courier",
+      "description": "The derived routing profile is international and the selected product is available for export.",
+      "dependencies": [
+        "courierRoutingProfile"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "courierRoutingProfile",
+          "value": "international"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "courier.international",
+      "name": "Use International Delivery Service",
+      "description": "Select the international courier for an export-eligible product sent to an international address.",
+      "parameters": {
+        "courierCode": "GLOBAL_EXPRESS",
+        "serviceArea": "international",
+        "serviceLevel": "international"
+      }
+    },
+    {
+      "id": "courier.local",
+      "name": "Use Local Delivery Service",
+      "description": "Select the standard local courier for local urban or rural delivery.",
+      "parameters": {
+        "courierCode": "LOCAL_PARCEL",
+        "serviceArea": "local",
+        "serviceLevel": "standard"
+      }
+    },
+    {
+      "id": "courier.same-day",
+      "name": "Use Same-Day Delivery Service",
+      "description": "Select the extra-fee same-day courier for an eligible product sent to a local urban address.",
+      "parameters": {
+        "courierCode": "URBAN_SAME_DAY",
+        "serviceArea": "local-urban",
+        "serviceLevel": "same-day",
+        "extraFeeRequired": true
+      }
+    }
+  ],
+  "rules": [
+    {
+      "id": "cpu.local",
+      "name": "CPU by local courier",
+      "description": "Routes CPU orders through the standard local courier when the local-standard profile is selected.",
+      "event": "product.cpu",
+      "condition": "route.local-standard",
+      "action": "courier.local"
+    },
+    {
+      "id": "cpu.international",
+      "name": "CPU by international courier",
+      "description": "Routes export-eligible CPU orders through the international courier.",
+      "event": "product.cpu",
+      "condition": "route.international",
+      "action": "courier.international"
+    },
+    {
+      "id": "cpu.same-day",
+      "name": "CPU by same-day courier",
+      "description": "Routes eligible local CPU orders through the same-day courier.",
+      "event": "product.cpu",
+      "condition": "route.local-same-day",
+      "action": "courier.same-day"
+    },
+    {
+      "id": "graphics-card.local",
+      "name": "Graphics card by local courier",
+      "description": "Routes graphics-card orders through the standard local courier when the local-standard profile is selected.",
+      "event": "product.graphics-card",
+      "condition": "route.local-standard",
+      "action": "courier.local"
+    },
+    {
+      "id": "graphics-card.international",
+      "name": "Graphics card by international courier",
+      "description": "Routes export-eligible graphics-card orders through the international courier.",
+      "event": "product.graphics-card",
+      "condition": "route.international",
+      "action": "courier.international"
+    },
+    {
+      "id": "motherboard.local",
+      "name": "Motherboard by local courier",
+      "description": "Routes motherboard orders through the standard local courier when the local-standard profile is selected.",
+      "event": "product.motherboard",
+      "condition": "route.local-standard",
+      "action": "courier.local"
+    },
+    {
+      "id": "motherboard.international",
+      "name": "Motherboard by international courier",
+      "description": "Routes export-eligible motherboard orders through the international courier.",
+      "event": "product.motherboard",
+      "condition": "route.international",
+      "action": "courier.international"
+    },
+    {
+      "id": "desktop-case.local",
+      "name": "Desktop case by local courier",
+      "description": "Routes desktop-case orders through the standard local courier when the local-standard profile is selected.",
+      "event": "product.desktop-case",
+      "condition": "route.local-standard",
+      "action": "courier.local"
+    },
+    {
+      "id": "desktop-case.international",
+      "name": "Desktop case by international courier",
+      "description": "Routes export-eligible desktop-case orders through the international courier.",
+      "event": "product.desktop-case",
+      "condition": "route.international",
+      "action": "courier.international"
+    },
+    {
+      "id": "memory-kit.local",
+      "name": "Memory kit by local courier",
+      "description": "Routes memory-kit orders through the standard local courier when the local-standard profile is selected.",
+      "event": "product.memory-kit",
+      "condition": "route.local-standard",
+      "action": "courier.local"
+    },
+    {
+      "id": "memory-kit.international",
+      "name": "Memory kit by international courier",
+      "description": "Routes export-eligible memory-kit orders through the international courier.",
+      "event": "product.memory-kit",
+      "condition": "route.international",
+      "action": "courier.international"
+    },
+    {
+      "id": "memory-kit.same-day",
+      "name": "Memory kit by same-day courier",
+      "description": "Routes eligible local memory-kit orders through the same-day courier.",
+      "event": "product.memory-kit",
+      "condition": "route.local-same-day",
+      "action": "courier.same-day"
+    },
+    {
+      "id": "nvme-ssd.local",
+      "name": "NVMe SSD by local courier",
+      "description": "Routes NVMe solid-state drive orders through the standard local courier when the local-standard profile is selected.",
+      "event": "product.nvme-ssd",
+      "condition": "route.local-standard",
+      "action": "courier.local"
+    },
+    {
+      "id": "nvme-ssd.international",
+      "name": "NVMe SSD by international courier",
+      "description": "Routes export-eligible NVMe solid-state drive orders through the international courier.",
+      "event": "product.nvme-ssd",
+      "condition": "route.international",
+      "action": "courier.international"
+    },
+    {
+      "id": "nvme-ssd.same-day",
+      "name": "NVMe SSD by same-day courier",
+      "description": "Routes eligible local NVMe solid-state drive orders through the same-day courier.",
+      "event": "product.nvme-ssd",
+      "condition": "route.local-same-day",
+      "action": "courier.same-day"
+    },
+    {
+      "id": "hard-drive.local",
+      "name": "Hard drive by local courier",
+      "description": "Routes mechanical hard-drive orders through the standard local courier when the local-standard profile is selected.",
+      "event": "product.hard-drive",
+      "condition": "route.local-standard",
+      "action": "courier.local"
+    },
+    {
+      "id": "hard-drive.international",
+      "name": "Hard drive by international courier",
+      "description": "Routes export-eligible mechanical hard-drive orders through the international courier.",
+      "event": "product.hard-drive",
+      "condition": "route.international",
+      "action": "courier.international"
+    },
+    {
+      "id": "power-supply.local",
+      "name": "Power supply by local courier",
+      "description": "Routes power-supply orders through the standard local courier when the local-standard profile is selected.",
+      "event": "product.power-supply",
+      "condition": "route.local-standard",
+      "action": "courier.local"
+    },
+    {
+      "id": "power-supply.international",
+      "name": "Power supply by international courier",
+      "description": "Routes export-eligible power-supply orders through the international courier.",
+      "event": "product.power-supply",
+      "condition": "route.international",
+      "action": "courier.international"
+    },
+    {
+      "id": "power-supply.same-day",
+      "name": "Power supply by same-day courier",
+      "description": "Routes eligible local power-supply orders through the same-day courier.",
+      "event": "product.power-supply",
+      "condition": "route.local-same-day",
+      "action": "courier.same-day"
+    },
+    {
+      "id": "gaming-monitor.local",
+      "name": "Gaming monitor by local courier",
+      "description": "Routes gaming-monitor orders through the standard local courier when the local-standard profile is selected.",
+      "event": "product.gaming-monitor",
+      "condition": "route.local-standard",
+      "action": "courier.local"
+    },
+    {
+      "id": "gaming-monitor.international",
+      "name": "Gaming monitor by international courier",
+      "description": "Routes export-eligible gaming-monitor orders through the international courier.",
+      "event": "product.gaming-monitor",
+      "condition": "route.international",
+      "action": "courier.international"
+    },
+    {
+      "id": "mechanical-keyboard.local",
+      "name": "Mechanical keyboard by local courier",
+      "description": "Routes mechanical-keyboard orders through the standard local courier when the local-standard profile is selected.",
+      "event": "product.mechanical-keyboard",
+      "condition": "route.local-standard",
+      "action": "courier.local"
+    },
+    {
+      "id": "mechanical-keyboard.international",
+      "name": "Mechanical keyboard by international courier",
+      "description": "Routes export-eligible mechanical-keyboard orders through the international courier.",
+      "event": "product.mechanical-keyboard",
+      "condition": "route.international",
+      "action": "courier.international"
+    },
+    {
+      "id": "mechanical-keyboard.same-day",
+      "name": "Mechanical keyboard by same-day courier",
+      "description": "Routes eligible local mechanical-keyboard orders through the same-day courier.",
+      "event": "product.mechanical-keyboard",
+      "condition": "route.local-same-day",
+      "action": "courier.same-day"
+    },
+    {
+      "id": "liquid-cooling-kit.local",
+      "name": "Liquid cooling kit by local courier",
+      "description": "No international or same-day rule exists for this restricted product.",
+      "event": "product.liquid-cooling-kit",
+      "condition": "route.local-standard",
+      "action": "courier.local"
+    },
+    {
+      "id": "ups-battery-backup.local",
+      "name": "UPS battery backup by local courier",
+      "description": "No international or same-day rule exists for this restricted product.",
+      "event": "product.ups-battery-backup",
+      "condition": "route.local-standard",
+      "action": "courier.local"
+    }
+  ]
+}

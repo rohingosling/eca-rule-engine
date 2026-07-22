@@ -1,0 +1,7 @@
+{
+  "type": "not a URI",
+  "title": "Evaluation input is invalid",
+  "status": 422,
+  "code": "invalid-evaluation",
+  "correlationId": "test-correlation-id"
+}

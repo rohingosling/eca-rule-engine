@@ -1,0 +1,10 @@
+{
+  "model": null,
+  "event": {
+    "type": "signal.received",
+    "payload": {
+      "level": 12
+    }
+  },
+  "trace": true
+}

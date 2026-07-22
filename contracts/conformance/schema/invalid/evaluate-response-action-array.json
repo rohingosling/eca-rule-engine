@@ -1,0 +1,18 @@
+{
+  "apiVersion": "1",
+  "schemaVersion": "1.0",
+  "modelId": "reference",
+  "eventType": "signal.received",
+  "selectedAction": [
+    {
+      "id": "alert",
+      "name": "Alert",
+      "parameters": {}
+    },
+    {
+      "id": "record",
+      "name": "Record",
+      "parameters": {}
+    }
+  ]
+}

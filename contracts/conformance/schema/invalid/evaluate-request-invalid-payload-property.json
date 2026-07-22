@@ -1,0 +1,8 @@
+{
+  "event": {
+    "type": "signal.received",
+    "payload": {
+      "bad parameter": 12
+    }
+  }
+}

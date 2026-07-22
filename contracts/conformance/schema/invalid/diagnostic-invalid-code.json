@@ -1,0 +1,5 @@
+{
+  "code": "UNRESOLVED_ACTION_REFERENCE",
+  "message": "Diagnostic codes use lowercase kebab case.",
+  "pointer": "/rules/0/action"
+}

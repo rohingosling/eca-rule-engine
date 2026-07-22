@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "1.0",
+  "id": "duplicate.diagnostic",
+  "name": "Duplicate diagnostic conformance model",
+  "parameters": [
+    {
+      "id": "value",
+      "name": "Value",
+      "type": "object"
+    }
+  ],
+  "payloads": [
+    {
+      "id": "payload.one",
+      "name": "First payload",
+      "parameters": [
+        "value"
+      ]
+    },
+    {
+      "id": "payload.two",
+      "name": "Second payload",
+      "parameters": [
+        "value"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "event.one",
+      "name": "First event",
+      "payload": "payload.one"
+    },
+    {
+      "id": "event.two",
+      "name": "Second event",
+      "payload": "payload.two"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "condition.invalid",
+      "name": "Invalid ordering condition",
+      "dependencies": [
+        "value"
+      ],
+      "predicate": {
+        "name": "greaterThan",
+        "arguments": {
+          "parameter": "value",
+          "value": 1
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "action.record",
+      "name": "Record",
+      "parameters": {}
+    }
+  ],
+  "rules": [
+    {
+      "id": "rule.one",
+      "name": "First rule",
+      "event": "event.one",
+      "condition": "condition.invalid",
+      "action": "action.record"
+    },
+    {
+      "id": "rule.two",
+      "name": "Second rule",
+      "event": "event.two",
+      "condition": "condition.invalid",
+      "action": "action.record"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0",
+  "id": "unresolved-event-payload-no-cascade",
+  "name": "Unresolved Event Payload Without Cascade",
+  "parameters": [
+    {
+      "id": "value",
+      "name": "Value",
+      "type": "string"
+    }
+  ],
+  "payloads": [],
+  "events": [
+    {
+      "id": "signal.received",
+      "name": "Signal received",
+      "payload": "missing-payload"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "value.matches",
+      "name": "Value matches",
+      "dependencies": [
+        "value"
+      ],
+      "predicate": {
+        "name": "equals",
+        "arguments": {
+          "parameter": "value",
+          "value": "expected"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "matched",
+      "name": "Matched",
+      "parameters": {}
+    }
+  ],
+  "rules": [
+    {
+      "id": "match.value",
+      "name": "Match value",
+      "event": "signal.received",
+      "condition": "value.matches",
+      "action": "matched"
+    }
+  ]
+}

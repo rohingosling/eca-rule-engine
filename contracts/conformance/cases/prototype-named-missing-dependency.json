@@ -1,0 +1,30 @@
+{
+  "id": "prototype-named-missing-dependency",
+  "modelPath": "../models/prototype-identifier-model.json",
+  "event": {
+    "type": "prototype.checked",
+    "payload": {}
+  },
+  "expectedActionId": null,
+  "expectedTrace": {
+    "conditions": [
+      {
+        "condition": "prototype.value.present",
+        "result": false,
+        "reason": "missing-dependency",
+        "missingDependencies": [
+          "toString"
+        ]
+      }
+    ],
+    "rules": [
+      {
+        "rule": "prototype.match",
+        "condition": "prototype.value.present",
+        "conditionResult": false,
+        "action": "prototype.matched",
+        "matched": false
+      }
+    ]
+  }
+}

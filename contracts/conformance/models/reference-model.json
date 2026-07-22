@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "1.0",
+  "id": "reference",
+  "name": "Reference conformance model",
+  "description": "A small model used to test stateless evaluation semantics.",
+  "parameters": [
+    {
+      "id": "level",
+      "name": "Level",
+      "type": "number",
+      "description": "Optional signal level."
+    },
+    {
+      "id": "source",
+      "name": "Source",
+      "type": "string",
+      "description": "Optional source label not used by a condition."
+    }
+  ],
+  "payloads": [
+    {
+      "id": "signal-payload",
+      "name": "Signal payload",
+      "parameters": [
+        "level",
+        "source"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "signal.received",
+      "name": "Signal received",
+      "payload": "signal-payload"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "always",
+      "name": "Always",
+      "dependencies": [],
+      "predicate": {
+        "name": "always",
+        "arguments": {}
+      }
+    },
+    {
+      "id": "level.high",
+      "name": "Level is high",
+      "dependencies": [
+        "level"
+      ],
+      "predicate": {
+        "name": "greaterThan",
+        "arguments": {
+          "parameter": "level",
+          "value": 10
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "alert",
+      "name": "Alert",
+      "parameters": {
+        "severity": "warning"
+      }
+    },
+    {
+      "id": "record",
+      "name": "Record",
+      "description": "Records the received signal for later analysis.",
+      "parameters": {
+        "severity": "information"
+      }
+    }
+  ],
+  "rules": [
+    {
+      "id": "record.signal",
+      "name": "Record every signal",
+      "event": "signal.received",
+      "condition": "always",
+      "action": "record"
+    },
+    {
+      "id": "alert.high.1",
+      "name": "Alert for a high signal",
+      "event": "signal.received",
+      "condition": "level.high",
+      "action": "alert"
+    },
+    {
+      "id": "alert.high.2",
+      "name": "Duplicate alert selection",
+      "event": "signal.received",
+      "condition": "level.high",
+      "action": "alert"
+    }
+  ]
+}

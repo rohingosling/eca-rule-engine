@@ -1,0 +1,30 @@
+{
+  "id": "predicate-greater-than-string",
+  "modelPath": "../models/predicate-model.json",
+  "event": {
+    "type": "test.greaterThan.string",
+    "payload": {
+      "greater-than-string-value": "😀"
+    }
+  },
+  "expectedActionId": "matched",
+  "expectedTrace": {
+    "conditions": [
+      {
+        "condition": "predicate.greaterThan.string",
+        "result": true,
+        "reason": "predicate-true",
+        "missingDependencies": []
+      }
+    ],
+    "rules": [
+      {
+        "rule": "rule.greaterThan.string",
+        "condition": "predicate.greaterThan.string",
+        "conditionResult": true,
+        "action": "matched",
+        "matched": true
+      }
+    ]
+  }
+}

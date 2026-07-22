@@ -1,0 +1,6 @@
+{
+  "type": "https://eca-rule-engine.example/problems/invalid-evaluation",
+  "title": "Evaluation input is invalid",
+  "status": 422,
+  "code": "invalid-evaluation"
+}

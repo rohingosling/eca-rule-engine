@@ -1,0 +1,11 @@
+{
+  "apiVersion": "1",
+  "schemaVersion": "1.0",
+  "modelId": "reference",
+  "eventType": "signal.unknown",
+  "selectedAction": null,
+  "trace": {
+    "conditions": [],
+    "rules": []
+  }
+}

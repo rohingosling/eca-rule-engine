@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eca-rule-engine.example/schemas/v1/health.schema.json",
+  "title": "ECA service health",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status",
+    "ready",
+    "version"
+  ],
+  "properties": {
+    "status": {
+      "const": "up"
+    },
+    "ready": {
+      "type": "boolean"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

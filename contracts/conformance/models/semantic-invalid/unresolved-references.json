@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0",
+  "id": "unresolved-references",
+  "name": "Unresolved references",
+  "parameters": [],
+  "payloads": [
+    {
+      "id": "payload.invalid",
+      "name": "Invalid payload",
+      "parameters": [
+        "missing.parameter"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "event.invalid",
+      "name": "Invalid event",
+      "payload": "missing.payload"
+    }
+  ],
+  "conditions": [],
+  "actions": [],
+  "rules": [
+    {
+      "id": "invalid.rule",
+      "name": "Invalid rule",
+      "event": "missing.event",
+      "condition": "missing.condition",
+      "action": "missing.action"
+    }
+  ]
+}

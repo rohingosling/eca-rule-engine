@@ -1,0 +1,15 @@
+{
+  "type": "https://eca-rule-engine.example/problems/invalid-evaluation",
+  "title": "Evaluation input is invalid",
+  "status": 422,
+  "code": "invalid-evaluation",
+  "correlationId": "contract-ambiguity-1",
+  "detail": "Evaluation matched multiple distinct actions.",
+  "diagnostics": [
+    {
+      "code": "ambiguous-action-selection",
+      "message": "Event 'signal.received' matched distinct actions [alert, record] through rules [alert.high.1, alert.high.2, record.signal].",
+      "pointer": "/event/type"
+    }
+  ]
+}

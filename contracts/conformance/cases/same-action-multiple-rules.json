@@ -1,0 +1,40 @@
+{
+  "id": "same-action-multiple-rules",
+  "modelPath": "../models/same-action-multiple-rules-model.json",
+  "event": {
+    "type": "signal.received"
+  },
+  "expectedActionId": "record",
+  "expectedTrace": {
+    "conditions": [
+      {
+        "condition": "always.one",
+        "result": true,
+        "reason": "predicate-true",
+        "missingDependencies": []
+      },
+      {
+        "condition": "always.two",
+        "result": true,
+        "reason": "predicate-true",
+        "missingDependencies": []
+      }
+    ],
+    "rules": [
+      {
+        "rule": "record.signal.1",
+        "condition": "always.one",
+        "conditionResult": true,
+        "action": "record",
+        "matched": true
+      },
+      {
+        "rule": "record.signal.2",
+        "condition": "always.two",
+        "conditionResult": true,
+        "action": "record",
+        "matched": true
+      }
+    ]
+  }
+}

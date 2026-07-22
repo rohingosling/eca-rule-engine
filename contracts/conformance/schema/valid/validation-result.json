@@ -1,0 +1,12 @@
+{
+  "valid": false,
+  "schemaVersion": "1.0",
+  "modelId": "example",
+  "diagnostics": [
+    {
+      "code": "unresolved-action-reference",
+      "message": "Rule 'notify' references unknown action 'send'.",
+      "pointer": "/rules/0/action"
+    }
+  ]
+}

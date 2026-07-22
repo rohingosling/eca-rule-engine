@@ -1,0 +1,11 @@
+id,name,description,dependencies,predicate
+condition-customer-vip-true,VIP Customer,,"[""paramter-vip-indicator""]","{""name"":""equals"",""arguments"":{""parameter"":""paramter-vip-indicator"",""value"":true}}"
+condition-customer-vip-false,Non-VIP Customer,,"[""paramter-vip-indicator""]","{""name"":""equals"",""arguments"":{""parameter"":""paramter-vip-indicator"",""value"":false}}"
+condition-country-us,Country - US,,"[""parameter-country""]","{""name"":""equals"",""arguments"":{""parameter"":""parameter-country"",""value"":""US""}}"
+condition-country-uk,Country - UK,,"[""parameter-country""]","{""name"":""equals"",""arguments"":{""parameter"":""parameter-country"",""value"":""UK""}}"
+condition-country-uae,Country - UAE,,"[""parameter-country""]","{""name"":""equals"",""arguments"":{""parameter"":""parameter-country"",""value"":""UAE""}}"
+condition-country-nz,Country - New Zealand,,"[""parameter-country""]","{""name"":""equals"",""arguments"":{""parameter"":""parameter-country"",""value"":""NZ""}}"
+condition-delivery-type-standard,Delivery Type - Standard,,"[""parameter-delivery-type""]","{""name"":""equals"",""arguments"":{""parameter"":""parameter-delivery-type"",""value"":""standard""}}"
+condition-delivery-type-scheduled,Delivery Type - Scheduled,,"[""parameter-delivery-type""]","{""name"":""equals"",""arguments"":{""parameter"":""parameter-delivery-type"",""value"":""scheduled""}}"
+condition-quantity-0-9,Quantity < 10,,"[""parameter-country""]","{""name"":""lessThan"",""arguments"":{""parameter"":""parameter-country"",""value"":10}}"
+condition-quantity-10-99,10 <= Quantity < 100,,"[""parameter-country""]","{""name"":""greaterThan"",""arguments"":{""parameter"":""parameter-country"",""value"":9}}"
